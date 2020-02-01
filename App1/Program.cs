@@ -17,7 +17,7 @@ namespace Game
         static int n;
         static int Hero_Level = 1;
         static int life = 0;
-
+        //git
 
         static List<string[]> frame = new List<string[]>(); //кадр
         static bool gameStatus = true; // Статус игры
