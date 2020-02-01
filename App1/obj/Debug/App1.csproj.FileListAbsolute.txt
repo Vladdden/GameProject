@@ -5,3 +5,17 @@ C:\Users\Владислав\source\repos\App1\App1\obj\Debug\App1.csprojResolveA
 C:\Users\Владислав\source\repos\App1\App1\obj\Debug\App1.csproj.CoreCompileInputs.cache
 C:\Users\Владислав\source\repos\App1\App1\obj\Debug\App1.exe
 C:\Users\Владислав\source\repos\App1\App1\obj\Debug\App1.pdb
+G:\App1\App1\bin\Debug\App1.exe.config
+G:\App1\App1\bin\Debug\App1.exe
+G:\App1\App1\bin\Debug\App1.pdb
+G:\App1\App1\obj\Debug\App1.csprojAssemblyReference.cache
+G:\App1\App1\obj\Debug\App1.csproj.CoreCompileInputs.cache
+G:\App1\App1\obj\Debug\App1.exe
+G:\App1\App1\obj\Debug\App1.pdb
+C:\Users\Владислав\Desktop\App1\App1\bin\Debug\App1.exe.config
+C:\Users\Владислав\Desktop\App1\App1\bin\Debug\App1.exe
+C:\Users\Владислав\Desktop\App1\App1\bin\Debug\App1.pdb
+C:\Users\Владислав\Desktop\App1\App1\obj\Debug\App1.csprojAssemblyReference.cache
+C:\Users\Владислав\Desktop\App1\App1\obj\Debug\App1.csproj.CoreCompileInputs.cache
+C:\Users\Владислав\Desktop\App1\App1\obj\Debug\App1.exe
+C:\Users\Владислав\Desktop\App1\App1\obj\Debug\App1.pdb
