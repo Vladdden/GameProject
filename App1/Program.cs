@@ -33,7 +33,6 @@ namespace Game
 
         static void Main()
         {
-            Tavern();
             n = 0;
             Console.WriteLine("\t\t\t\tMAGIC WAR\n\n\n");
             Console.WriteLine("Предыстория: Еще вчера все было хорошо и везде царил мир и покой. \nНо тут случилось то, чего не ожидал никто." +
