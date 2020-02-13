@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,7 +18,8 @@ namespace Game
         static int n;
         static int Hero_Level = 1;
         static int life = 0;
-        //git))
+		ConsoleKeyInfo enter;
+
 
         static List<string[]> frame = new List<string[]>(); //кадр
         static bool gameStatus = true; // Статус игры
@@ -33,23 +35,25 @@ namespace Game
 
         static void Main()
         {
-            Tavern();
+			Console.Clear();
             n = 0;
             Console.WriteLine("\t\t\t\tMAGIC WAR\n\n\n");
             Console.WriteLine("Предыстория: Еще вчера все было хорошо и везде царил мир и покой. \nНо тут случилось то, чего не ожидал никто." +
                 " На земли сказочных земель\nнапали ужасные Тролли. Без какого-либо повода они разбойничают и нападают на\nкаждого, кто встанет у них на пути." +
                 " Пророчество гласит, что однажды появится магв чьих силах будет - противостоять многочисленной армии Троллей.\nИ вот, пророчество сбылось...\n");
             Console.WriteLine("Цель игры: Одолеть всех врагов, что встретятся у тебя на пути.\n\n\n");
-            Console.WriteLine("Нажмите Enter для продолжения...");
-            Console.ReadKey();
+            Console.WriteLine("Нажмите Enter для продолжения...");     
+			if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+				danger();
             Console.Clear();
             Console.WriteLine("Примечание №1: Ввод подразумевает русскоязычного пользователя и ответы\nТОЛЬКО в виде \"Да\" и \"Нет\" (за искл. выбора сложности).\n");
             Console.WriteLine("Примечание №2: В игре присутствует защита от неправильного ввода, а так же,\nфункция \"НА РАБОТЕ\".\n" +
-                "В случае, если вы заметили приближение начальника, во время ввода решения\nпросто нажмите \"Enter\" - это скроет игру, " +
+                "В случае, если вы заметили приближение начальника, во время ввода решения\nпросто нажмите \"Esc\" - это скроет игру, " +
                 "заменив её на информацию, выводимую\nпри вызове консоли (даже разбирающийся в компьютерах человек, увидев ее,\nничего не заподозрит)\n" +
                 "Для выхода из режима \"маскировки\" введите следующую комбинацию клавишь - \":)\" \n\n");
             Console.WriteLine("Нажмите Enter для продолжения...");
-            Console.ReadKey();
+			if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+				danger();
             Console.Clear();
             Console.Write("Введите ваше имя: ");
             user = Console.ReadLine();
@@ -82,10 +86,13 @@ namespace Game
                 Console.WriteLine("Выбранный уровень сложности - Сложно\n");
             }
             Console.WriteLine("\n\n\nНажмите Enter для продолжения...");
-            Console.ReadKey();
+			if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+				danger();
+			Console.Clear();
             PrintInfo();
             Console.WriteLine("Нажмите Enter для начала игры...");
-            Console.ReadKey();
+			if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+				danger();
             Console.Clear();
             do
             {
@@ -109,7 +116,8 @@ namespace Game
             Console.WriteLine($"Проведено боев: {n}\n");
             lose();
             Console.WriteLine("Нажмите Enter для выхода...");
-            Console.ReadKey();
+			if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+				danger();
 
         }
 
@@ -148,23 +156,32 @@ namespace Game
             {
                 case 1:
                     randomEvent();
-                    Console.ReadKey();
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					danger();
+					Console.Clear();
                     Console.WriteLine("Герой идёт в поле...\n\n\n");
-                    Console.ReadKey();
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					danger();
                     Field(1);
                     break;
                 case 2:
                     randomEvent();
-                    Console.ReadKey();
-                    Console.WriteLine("Герой перебирается через горы...\n\n\n");
-                    Console.ReadKey();
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					danger();
+					Console.Clear();
+					Console.WriteLine("Герой перебирается через горы...\n\n\n");
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					danger();
                     Field(2);
                     break;
                 case 3:
                     randomEvent();
-                    Console.ReadKey();
-                    Console.WriteLine("Герой проходит в лесу...\n\n\n");
-                    Console.ReadKey();
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					danger();
+					Console.Clear();
+					Console.WriteLine("Герой проходит в лесу...\n\n\n");
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					danger();
                     Field(3);
                     break;
             }
@@ -177,9 +194,9 @@ namespace Game
             going();
             Random rand = new Random();
             int temp;
-            if (n <= 6) temp = rand.Next(70);
+            if (n <= 3) temp = rand.Next(60);
             else temp = rand.Next(103);
-            if (temp <= 70)
+            if (temp <= 60)
             {
                 Console.WriteLine("На пути тебе встретился тролль\n");
                 int troll_health = rand.Next(80, 100);
@@ -229,7 +246,8 @@ namespace Game
                             break;
 
                         }
-                        Console.ReadKey();
+						if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+							danger();
                     } while (troll_health >= 0 && health >= 0);
                     if (troll_health <= 0)
                     {
@@ -238,10 +256,12 @@ namespace Game
                         health += t_h;
                         damage = damage_value(1, health);
                         money += troll_money;
-                        Console.ReadKey();
+						if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+							danger();
                         PrintInfo();
                         Console.WriteLine("Нажмите Enter для продолжения...");
-                        Console.ReadKey();
+						if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+							danger();
                         roulette(ref money, ref health);
                     }
                     if (health < 0)
@@ -268,7 +288,7 @@ namespace Game
                     }
                 }
             }
-            else if (70 <= temp && temp <= 90)
+            else if (60 <= temp && temp <= 90)
             {
                 Console.WriteLine("На пути тебе встретился отряд троллей\n");
                 int troll_health = rand.Next(250, 600);
@@ -311,7 +331,8 @@ namespace Game
                             Console.WriteLine("Этот удар стал для вас последним...\n");
                             break;
                         }
-                        Console.ReadKey();
+						if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+							danger();
                     } while (troll_health >= 0 && health >= 0);
                     if (troll_health <= 0)
                     {
@@ -320,10 +341,12 @@ namespace Game
                         health += t_h;
                         damage = damage_value(1, health);
                         money += troll_money;
-                        Console.ReadKey();
+						if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+							danger();
                         PrintInfo();
                         Console.WriteLine("Нажмите Enter для продолжения...");
-                        Console.ReadKey();
+						if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+							danger();
                         roulette(ref money, ref health);
                     }
                     if (health < 0)
@@ -393,7 +416,8 @@ namespace Game
                             Console.WriteLine("Этот удар стал для вас последним...\n");
                             break;
                         }
-                        Console.ReadKey();
+						if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+							danger();
                     } while (troll_health >= 0 && health >= 0);
                     if (troll_health <= 0)
                     {
@@ -402,10 +426,12 @@ namespace Game
                         health += t_h;
                         damage = damage_value(1, health);
                         money += troll_money;
-                        Console.ReadKey();
+						if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+							danger();
                         PrintInfo();
                         Console.WriteLine("Нажмите Enter для продолжения...");
-                        Console.ReadKey();
+						if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+							danger();
                         roulette(ref money, ref health);
                     }
                     if (health < 0)
@@ -475,7 +501,8 @@ namespace Game
                             Console.WriteLine("Этот удар стал для вас последним...\n");
                             break;
                         }
-                        Console.ReadKey();
+						if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+							danger();
                     } while (troll_health >= 0 && health >= 0);
                     if (troll_health <= 0)
                     {
@@ -555,7 +582,8 @@ namespace Game
             }
             else Console.WriteLine("\nК сожалению, у вас не хватает денег.\n");
             Console.WriteLine("Нажмите Enter для продолжения...");
-            Console.ReadKey();
+			if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+				danger();
 
         }
 
@@ -590,14 +618,34 @@ namespace Game
             Console.WriteLine("Игра возобновлена.\n");
         }
 
-        static string Enter(string s)
+
+		//if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+		//	danger();
+		/*
+		 * Console.ReadKey(true).KeyChar == 'F'
+		 * 
+		 * char ch = 'A';
+			ConsoleKey ck = (ConsoleKey) ch;
+		 *  ConsoleWriteLine(ConsoleKey.Escape.KeyChar);
+		 * 
+		 * 
+		 */
+		static void Enter (ConsoleKey s)
+		{
+			if (s == ConsoleKey.Escape)
+				danger ();
+			Console.WriteLine ("Введите ответ на последнее действие \n");
+			Enter ("a");
+
+		}
+			
+		static string Enter(string s)
         {
-            if (s == "")
-            {
-                danger();
-                Console.WriteLine("Введите ответ на последнее действие \n");
-                s = Console.ReadLine();
-            }
+			if ( s == "") {
+				danger ();
+				Console.WriteLine ("Введите ответ на последнее действие \n");
+				s = Console.ReadLine ();
+			}
             if ((s == "Да") || (s == "да") || (s == "ДА") || (s == "Нет") || (s == "нет") || (s == "НЕТ")) return s;
             else
             {
@@ -609,7 +657,7 @@ namespace Game
                 return s;
             }
         }
-
+	
         static void Field(int num)
         {
             Console.ForegroundColor = ConsoleColor.White; // Цвет текста консоли 
@@ -726,7 +774,9 @@ namespace Game
             Render();
             while (gameStatus)
             {
+				
                 var keyInfo = Console.ReadKey();
+		if (keyInfo.Key == ConsoleKey.Escape)danger();
                 moveHero(keyInfo);
                 Render();
             }
@@ -753,7 +803,8 @@ namespace Game
                     // монеты 20,50
                     t = rand.Next(20, 50);
                     Console.WriteLine($"\nПо пути вам захотелось в туалет... ");
-                    Console.ReadKey();
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					danger();	
                     Console.WriteLine($"В кустах, где вы делали \"свои дела\", вами был обнаружен спрятанный мешочек с монетами - {t} шт.\n");
                     money += t;
                     break;
@@ -768,16 +819,21 @@ namespace Game
 
                 case 4: //Вы увидели звездопад и загодали увеличение денег или здоровья (желание может сбыться, может нет)
                     Console.WriteLine("\nОстановившись на ночлег и разведя костер, вы принялись готовить ужин...");
-                    Console.ReadKey();
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					danger();
                     Console.WriteLine("В какой-то момент, в отражении воды, что была в котле, вы увидели звезды. ");
-                    Console.ReadKey();
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					danger();
                     Console.WriteLine("Подняв голову, вашему взору представились тысячи маленьких мерцающих огоньков! ");
-                    Console.ReadKey();
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					danger();
                     Console.WriteLine("Было тихо, только сверчки изредка давали о себе знать, вы уже доедали свою стрепню.");
                     Console.WriteLine(" Как вдруг , казалось бы, неподвижный небосвод оживился! ");
-                    Console.ReadKey();
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					danger();
                     Console.WriteLine("Десятки звезд одновременно устремлялись к горизонту!!!");
-                    Console.ReadKey();
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					danger();
                     Console.WriteLine("Что вы хотите загадать ?");
                     Console.WriteLine("Больше жизни");
                     Console.WriteLine("Больше денег");
@@ -812,42 +868,54 @@ namespace Game
                     //Кража удачная (получилось украсть деньги/амулеты)                                                               |
                     //Кража неудачная (вас поймали и избили , забрав ваши деньги)  
                     Console.WriteLine("Не далеко от тропы, по которой вы шли, Вам послышался шум людей.");
-                    Console.ReadKey();
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					danger();
                     Console.WriteLine("Подойдя поближе, вы увидели группу торговцев, остановившихся на опушке для ночлега.");
-                    Console.ReadKey();
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					danger();
                     Console.WriteLine("Вы подумали, что если дождаться, пока все уснут, то у вас будет хорошая возможность\n" +
                         "чтобы украсть что-то.");
-                    Console.ReadKey();
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					danger();
                     Console.WriteLine("Будете ли вы это делать?");
                     string a = Console.ReadLine();
                     a = Enter(a);
                     if ((a == "Да") || (a == "да") || (a == "ДА"))
                     {
                         Console.WriteLine("Вы дождались ночи.");
-                        Console.ReadKey();
+					if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+						danger();
                         Console.WriteLine("Все уснули.");
-                        Console.ReadKey();
+					if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+						danger();
                         Console.WriteLine("Под оглушающие звуки храпа вы пробрались к месту, где лежали вещи торговцев...");
-                        Console.ReadKey();
+					if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+						danger();
                         t = rand.Next(2);
                         if (t == 1)
                         {
                             Console.WriteLine("На цыпочках вы подкрались к месту, куда торговцы свалили все свои вещи.");
-                            Console.ReadKey();
+						if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+							danger();
                             Console.WriteLine("Один из торговцев начал издавать звуки пробуждения.");
-                            Console.ReadKey();
+						if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+							danger();
                             Console.WriteLine("Вы быстро схватили небольшой кошель с монетами, который лежал в одном из мешков с вещами.");
-                            Console.ReadKey();
+						if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+							danger();
                             Console.WriteLine("Так же тихо, как вошли, вы, не привлекая внимания, ушли с опушки\nи устремились куда подальше.");
-                            Console.ReadKey();
+						if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+							danger();
                             Console.WriteLine("Отойдя достаточно далеко, вы остановились, чтоб подсчитать свою добычу.");
-                            Console.ReadKey();
+						if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+							danger();
                             int q = (int)((float)money * 0.1F);
                             int w = (int)((float)money * 0.2F);
                             t3 = rand.Next(q, w);
                             Console.WriteLine($"Там было {t3} золотых.");
                             money += t3;
-                            Console.ReadKey();
+						if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+							danger();
                         }
                         else
                         {
@@ -857,9 +925,11 @@ namespace Game
                             else Console.WriteLine("Как только ваша нога вступила на поляну, где отдыхали торговцы,\n" +
                                 "ваш запах учуяла собака, подняв громкий лай, она разбудила всех торговцев...");
                             Console.WriteLine("Вас поймали и вривязали к дереву.");
-                            Console.ReadKey();
+						if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+							danger();
                             Console.WriteLine("Единогласно было принято решение избить вас и забрать в отместку часть ваших денег.");
-                            Console.ReadKey();
+						if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+							danger();
                             int q = (int)((float)money * 0.1F);
                             int w = (int)((float)money * 0.2F);
                             t3 = rand.Next(q, w);
@@ -869,7 +939,8 @@ namespace Game
                             Console.WriteLine($"Торговцы сжалились над вами и отняли только {t3} золотых и {u} единиц здоровья.");
                             money -= t3;
                             health -= u;
-                            Console.ReadKey();
+						if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+							danger();
                         }
                     }
                     else Console.WriteLine("У вас могло получиться... Зато, ваша совесть чиста!");
@@ -877,86 +948,108 @@ namespace Game
 
                 case 6:
                     Console.WriteLine("Погода была прекрасной, вы решили пройти как можно больше.");
-                    Console.ReadKey();
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					danger();
                     Console.WriteLine("Когда вы вспомнили о ночлеге, было совсем темно.");
-                    Console.ReadKey();
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					danger();
                     Console.WriteLine("В крамешной тьме было практически ничего не видно, и решили остановиться\n" +
                         "у первого, попавшегося вам на пути, дерева.");
-                    Console.ReadKey();
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					danger();
                     Console.WriteLine("Из-за того, что вчера вы шли исключительно долго, мы особенно сильно устали," +
                         "из-за чего ваш сон был оченнь крепким.");
-                    Console.ReadKey();
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					danger();
                     Console.WriteLine("На утро вы проснулись от сильной боли и обнаружили, что спали на муравейнике.");
-                    Console.ReadKey();
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					danger();
                     t2 = rand.Next(10, 30);
                     Console.WriteLine($"Эта ночь отняла у вас {t2} единиц здоровья.");
                     health -= t2;
-                    Console.ReadKey();
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					danger();
                     break;
 
                 case 7:
                     //Нападение диких животных
                     Console.WriteLine("Ваше путешествие завело вас в лес.");
-                    Console.ReadKey();
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					danger();
                     Console.WriteLine("Ближе к вечеру по пути вы обнаружили прекрасную поляну прямо у ручья.");
-                    Console.ReadKey();
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					danger();
                     Console.WriteLine("Без раздумываний вы принялись готовить ужин и готовиться к ночлегу.");
-                    Console.ReadKey();
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					danger();
                     Console.WriteLine("В этот раз, ужин показался вам особенно вкусным.");
-                    Console.ReadKey();
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					danger();
                     Console.WriteLine("Закончив трапезу, вы практически сразу же заснули.");
-                    Console.ReadKey();
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					danger();
                     Console.WriteLine("К сожалению, запах ужина, а так же наличие животной тропы рядом\n" +
                         "привели к вам диких зверей.");
-                    Console.ReadKey();
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					danger();
                     t2 = rand.Next(1, 5);
                     if (t2 == 1)
                     {
                         Console.WriteLine("Этим зверем оказался - Дикий Заяц.");
-                        Console.ReadKey();
+					if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+						danger();
                         int q = (int)((float)health * 0.01F);
                         int w = (int)((float)health * 0.1F);
                         t3 = rand.Next(q, w);
                         Console.WriteLine("Вам повезло, вы не привлекли этого зверя, как добыча,\n" +
                             "и нанеся пару ударов, он ушел.");
-                        Console.ReadKey();
+					if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+						danger();
                         Console.WriteLine($"Урон вашему здоровью составил - {t3} ед. здоровья.");
 
                     }
                     else if (t2 == 2)
                     {
                         Console.WriteLine("Этим зверем оказался - Бурый медведь.");
-                        Console.ReadKey();
+					if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+						danger();
                         int q = (int)((float)health * 0.4F);
                         int w = (int)((float)health * 0.5F);
                         t3 = rand.Next(q, w);
                         Console.WriteLine("Вам повезло, вы не мед, и не - гибы, вы не привлекли этого зверя, как добыча.\n");
-                        Console.ReadKey();
+					if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+						danger();
                         Console.WriteLine("Пару раз ударив лапой, он убедился, что вы - живой, и в развалочку ушел.");
-                        Console.ReadKey();
+					if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+						danger();
                         Console.WriteLine($"Урон вашему здоровью составил - {t3} ед. здоровья.");
                     }
                     else if (t2 == 3)
                     {
                         Console.WriteLine("Ууу Вам не повезло...");
-                        Console.ReadKey();
+					if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+						danger();
                         Console.WriteLine("Этим зверем оказался - Волк-мать.");
-                        Console.ReadKey();
+					if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+						danger();
                         int q = (int)((float)health * 0.3F);
                         int w = (int)((float)health * 0.4F);
                         t3 = rand.Next(q, w);
                         Console.WriteLine("В лесу нет никого беспощадней - волка-матери.");
-                        Console.ReadKey();
+					if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+						danger();
                         Console.WriteLine("Но, видимо, удача была на вашей стороне, и проснувшись от укуса в шею,\n" +
                             "Вы поспешно залезли на дерево, где смогли укрыться от гнева этого монстра.");
-                        Console.ReadKey();
+					if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+						danger();
                         Console.WriteLine($"Утром вы слезли с дерева и приложили к шее подорожник,\n" +
                             $"Но, не смотря на это, все равно получили урон в {t3} ед. здоровья.");
                     }
                     else if (t2 == 4)
                     {
                         Console.WriteLine("Этим зверем оказалась - Рысь обыкновенная.");
-                        Console.ReadKey();
+					if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+						danger();
                         int q = (int)((float)health * 0.2F);
                         int w = (int)((float)health * 0.3F);
                         t3 = rand.Next(q, w);
@@ -967,16 +1060,21 @@ namespace Game
                     else
                     {
                         Console.WriteLine("Этим зверем оказался - Кабан.");
-                        Console.ReadKey();
+					if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+						danger();
                         t3 = 0;
                         Console.WriteLine("Везение это или нет, решать вам, но...");
-                        Console.ReadKey();
+					if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+						danger();
                         Console.WriteLine("Кабан увидел в вас идеального полового партнера...,\n");
-                        Console.ReadKey();
+					if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+						danger();
                         Console.WriteLine("Вы не могли сопротивляться, он был слишком велик, накачен и красив собою.");
-                        Console.ReadKey();
+					if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+						danger();
                         Console.WriteLine($"Урон вашему физическому здоровью составил - {t3} ед. здоровья, моральному - [НЕВОЗМОЖНО ПОДСЧИТАТЬ]");
-                        Console.ReadKey();
+					if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+						danger();
                     }
                     break;
                 case 8:
@@ -985,80 +1083,107 @@ namespace Game
                     if (t2 == 1)//много дней шел дождь 
                     {
                         Console.WriteLine("Много дней подряд шел дождь.");
-                        Console.ReadKey();
+					if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+						danger();
                         Console.WriteLine("Из-за густых свинцовых тучь, казалось, что солнце перехотело озарять землю своими лучами, и просто ушло восвояси. ");
-                        Console.ReadKey();
+					if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+						danger();
                         Console.WriteLine("Было темно, сыро и очень холодно. Несмотря, на максимальную осторожность, вы умудрились промокнуть до ниточки.\n");
-                        Console.ReadKey();
+					if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+						danger();
                         Console.WriteLine("В принципе, как и все остальное...\n");
-                        Console.ReadKey();
+					if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+						danger();
                         Console.WriteLine("Наконец дождь утих и погода наладилась, но от этого вам ни чуть не полегчало. У вас поднялся сильный жар и усталость\n" +
                             "была настолько сильна, что вы не могли даже встать...");
-                        Console.ReadKey();
+					if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+						danger();
                         Console.WriteLine("Вас нашла постушка в поле без сознания. Благо она жила недалеко и, не без помощи, притащив вас домой, помогла вам прийти\n" +
                             "в себя и набраться сил.");
-                        Console.ReadKey();
+					if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+						danger();
                         Console.WriteLine("Побыв еще пару дней у женщины, вы окончательно оправились и окрепли, для продолжения путешествия.\n");
-                        Console.ReadKey();
+					if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+						danger();
                         t = rand.Next(30, 70);
                         Console.WriteLine($"В благодарность, вы помогли ей по хозяйству и дали немного денег - {t}\n");
                         money -= t;
-                        Console.ReadKey();
+					if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+						danger();
                     }
                     else if (t2 == 2)// конец осени, снильный ветер
                     {
                         Console.WriteLine("Был конец осени.\n");
-                        Console.ReadKey();
+					if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+						danger();
                         Console.WriteLine("Место, где вы шли, славилось сильнейшими шквальными ветрами, из-за которых тут никто надолго не задерживался.\n");
-                        Console.ReadKey();
+					if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+						danger();
                         Console.WriteLine("В какой-то моент он стал настолько сильным, что вы были вынуждены прекратить свой путь и сделать остановку\n");
-                        Console.ReadKey();
+					if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+						danger();
                         Console.WriteLine("Огромный ясень, хоть и устрашающе гудел от ветра, но все же защищал вас от сильной непогоды.\n");
-                        Console.ReadKey();
+					if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+						danger();
                         Console.WriteLine("Кое-как вы развели небольшой костер и принялись готовить ранее пойманную мышку.\n");
-                        Console.ReadKey();
+					if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+						danger();
                         Console.WriteLine("Ваш пир прервал мощнейший ХРУСТ, все произошло быстро и ... больно.\n");
-                        Console.ReadKey();
+					if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+						danger();
                         Console.WriteLine("Вам на ногу упала большая ветка. Перелома, к счастью, не было, но ушиб еще неделю не давал вам ходить в полную силу.\n");
-                        Console.ReadKey();
+					if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+						danger();
                         Console.WriteLine("Урон здоровью - 30 единиц.\n");
                         health -= 30;
-                        Console.ReadKey();
+					if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+						danger();
                     }
                     else//зима холод 
                     {
                         Console.WriteLine("В этом году зима пришла рано и застала вас врасплох.\n");
-                        Console.ReadKey();
+					if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+						danger();
                         Console.WriteLine("Вы считали себя достаточно тепло одетым, но эта ночь доказала вам совершенно обратное.\n");
-                        Console.ReadKey();
+					if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+						danger();
                         Console.WriteLine("Проснувшись утром вы не чувствовали конечностей от холода, а ваша борода была полностью покрыта инеем.\n" +
                             "Ночные заморозки были настолько сильными, что даже костер потух.\n");
-                        Console.ReadKey();
+					if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+						danger();
                         Console.WriteLine("Вы были вынуждены отправиться в ближайшее поселение и купить себе там теплую одежду.\n");
-                        Console.ReadKey();
+					if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+						danger();
                         Console.WriteLine("Покупка теплой одежды - дело не дешевое. Эта покупка нанесла вам денежный урон в 100 монет.\n");
                         money -= 100;
-                        Console.ReadKey();
+					if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+						danger();
                     }
                     break;
 
                 case 9:
                     //Нашел свиток со знаниями ... (+ к хп) 
                     Console.WriteLine("Дорога вела вас через заснеженные горы.");
-                    Console.ReadKey();
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					danger();
                     Console.WriteLine("Вы остновились, ваше внимание заинтересовала занесенная снегом пещера, неподалеку вас.");
-                    Console.ReadKey();
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					danger();
                     Console.WriteLine("Зайдя в нее вы увидели множество настенных рисунков, вославляющих свиток, и сам свиток,\n" +
                         "лежащий на каменном саркофаге");
-                    Console.ReadKey();
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					danger();
                     Console.WriteLine("Свиток оказался магическим и прочитав его, вы наложили на себя защитную печать.");
-                    Console.ReadKey();
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					danger();
                     Console.WriteLine("Он так же , открыл вам древние зания и историю о монахе, который его написал и наделил силой.");
-                    Console.ReadKey();
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					danger();
                     //мб добавить историю о монахе, которую игра будет выводить по желанию
                     Console.WriteLine("Ваше здоровье увеличилось на 50 ед.");
                     health += 50;
-                    Console.ReadKey();
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					danger();
                     break;
 
                 case 10:
@@ -1069,67 +1194,92 @@ namespace Game
                 case 11:
                     //Укус змеи 
                     Console.WriteLine("Солнце было в зените.");
-                    Console.ReadKey();
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					danger();
                     Console.WriteLine("Вы не прикрыли вовремя голову и заработали солнечный удар.");
-                    Console.ReadKey();
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					danger();
                     Console.WriteLine("У вас началось обильное потоотделение и начала кружиться голова.");
-                    Console.ReadKey();
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					danger();
                     Console.WriteLine("Из-за сильной отдышки вы больше не можете продолжать путь и решаете присесть, отдохнуть");
-                    Console.ReadKey();
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					danger();
                     Console.WriteLine("Вы упали на землю...");
-                    Console.ReadKey();
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					danger();
                     Console.WriteLine("В этот момент из сухостоя поблизости выскочила змея и укусила вас за руку.");
-                    Console.ReadKey();
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					danger();
                     Console.WriteLine("Вы отсосали яд и ушли подальше от того места...");
-                    Console.ReadKey();
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					danger();
                     Console.WriteLine("Но все ущерб здоровью равный 15 ед. получили.");
                     health -= 15;
-                    Console.ReadKey();
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					danger();
                     break;
 
                 case 12:
                     //Вас обокрали (вор) (минус деньги) 
                     Console.WriteLine("День был тяжелым и вы спали, как младенец.");
-                    Console.ReadKey();
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					danger();
                     Console.WriteLine("К большому сожалению, мимо вас проходил вор, который решил этим воспользоваться.");
-                    Console.ReadKey();
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					danger();
                     Console.WriteLine("Он ломал палки и шелестел ветками вблизи места вашего ночлега.");
-                    Console.ReadKey();
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					danger();
                     Console.WriteLine("Убедившись, что вы крепко спите он медленно и тихо подошел к вам и забрал все, что только смог унести.");
-                    Console.ReadKey();
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					danger();
                     Console.WriteLine("Так же тихо, как пришел, он развернулся и ушел восвояси...");
-                    Console.ReadKey();
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					danger();
                     Console.WriteLine("Не огорчайтесь, все могло быть и хуже... Вы живы! Уже этому должны быть благодарны.");
-                    Console.ReadKey();
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					danger();
                     int th = (int)(health / 3);
                     Console.WriteLine($"Эта неприятность обошлась вам в {th} единиц золота.");
                     health -= th;
-                    Console.ReadKey();
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					danger();
                     break;
 
                 case 13:
                     //Вы по пути нашли броню (+ к хп) 
                     Console.WriteLine("В какой-то момент вы вышли на крупную тропу.");
-                    Console.ReadKey();
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					danger();
                     Console.WriteLine("Идя по ней вы вышли на большое, не совсем обычное поле.");
-                    Console.ReadKey();
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					danger();
                     Console.WriteLine("Необычным в этом поле было то, что оно практически все было увалено трупами воинов, которые, видимо, еще совсем недавно тут бились.");
-                    Console.ReadKey();
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					danger();
                     Console.WriteLine("Над полем летали вороны, а у земли дымом стилился тяжелый туман.");
-                    Console.ReadKey();
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					danger();
                     Console.WriteLine("Вы решили обойти поле и посмотреть, нет ли выживших.");
-                    Console.ReadKey();
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					danger();
                     Console.WriteLine("Неподалеку от вас послушался хлиплый кашель, подбежав, вы увидели раненного воина.");
-                    Console.ReadKey();
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					danger();
                     Console.WriteLine("Ранение было очень глубоким и было понятно, что ему осталось совсем недолго.");
-                    Console.ReadKey();
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					danger();
                     Console.WriteLine("Перед смертью, мужчина попросил вас дать ему сделать последний, в его жизни, глоток эля.");
-                    Console.ReadKey();
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					danger();
                     Console.WriteLine("В благодарность, он завещал вам свои доспехи и попросил вас беречь их в память о нем и его павших воинах...");
-                    Console.ReadKey();
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					danger();
                     Console.WriteLine("Броня прибавила вам 60 ед. к хп.");
                     health += 60;
-                    Console.ReadKey();
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					danger();
                     break;
 
                 case 14:
@@ -1239,7 +1389,9 @@ namespace Game
             Render();
             while (gameStatus)
             {
+				
                 var keyInfo = Console.ReadKey();
+		if (keyInfo.Key == ConsoleKey.Escape)danger();
                 moveHero(keyInfo, 1);
                 Render();
             }
@@ -1435,7 +1587,8 @@ namespace Game
             Console.WriteLine("///");
             Console.Beep();
             gameStatus = false;
-            Console.ReadKey();
+			if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+				danger();
         }
 
         static void moveHero_Present(ConsoleKeyInfo keyInfo)
@@ -1844,19 +1997,23 @@ namespace Game
             gameStatus = true;
             while (gameStatus)
             {
+				
                 var keyInfo = Console.ReadKey();
+				if (keyInfo.Key == ConsoleKey.Escape)danger();
                 moveHero_Tavern(keyInfo);
                 Render();
             }
-            Console.ReadKey();
+			if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+				danger();
         }
         
         static void Level()
         {
+			Console.Clear();
             Random rand = new Random();
             int temp;
             Console.Clear();
-            if ((health >= 300) && (health < 500))
+			if ((health >= 300) && (Hero_Level == 1))
             {
                 Hero_Level = 2;
                 temp = rand.Next(2);
@@ -1864,7 +2021,7 @@ namespace Game
                 else Console.WriteLine($"\t\t\tПоздравляем, вы перешли на новый - {Hero_Level}-й уровень !!! ");
                 Present(Hero_Level);
             }
-            else if ((health >= 500) && (health < 1000))
+			else if ((health >= 500) && (Hero_Level == 2))
             {
                 Hero_Level = 3;
                 temp = rand.Next(2);
@@ -1872,7 +2029,7 @@ namespace Game
                 else Console.WriteLine($"\t\t\tПоздравляем, вы перешли на новый - {Hero_Level}-й уровень !!! ");
                 Present(Hero_Level);
             }
-            else if ((health >= 1000) && (health < 3000))
+			else if ((health >= 1000) && (Hero_Level == 3))
             {
                 Hero_Level = 4;
                 temp = rand.Next(2);
@@ -1880,7 +2037,7 @@ namespace Game
                 else Console.WriteLine($"\t\t\tПоздравляем, вы перешли на новый - {Hero_Level}-й уровень !!! ");
                 Present(Hero_Level);
             }
-            else if ((health >= 3000) && (health < 5000))
+			else if ((health >= 3000) && (Hero_Level == 4))
             {
                 Hero_Level = 5;
                 temp = rand.Next(2);
@@ -1888,7 +2045,7 @@ namespace Game
                 else Console.WriteLine($"\t\t\tПоздравляем, вы перешли на новый - {Hero_Level}-й уровень !!! ");
                 Present(Hero_Level);
             }
-            else if ((health >= 5000) && (health < 8000))
+			else if ((health >= 5000) && (Hero_Level == 5))
             {
                 Hero_Level = 6;
                 temp = rand.Next(2);
@@ -1896,7 +2053,7 @@ namespace Game
                 else Console.WriteLine($"\t\t\tПоздравляем, вы перешли на новый - {Hero_Level}-й уровень !!! ");
                 Present(Hero_Level);
             }
-            else if (health >= 8000)
+			else if ((health >= 8000) && (Hero_Level == 6))
             {
                 Hero_Level = 7;
                 temp = rand.Next(2);
@@ -1908,6 +2065,7 @@ namespace Game
 
         static void Present(int level)
         {
+			Console.Clear();
             Random rand = new Random();
             int temp;
             frame.Add(new string[] { "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#" });
@@ -1940,6 +2098,8 @@ namespace Game
             while (gameStatus)
             {
                 var keyInfo = Console.ReadKey();
+				if (keyInfo.Key == ConsoleKey.Escape)
+					danger();
                 moveHero_Present(keyInfo);
                 Render();
             }
@@ -2034,7 +2194,8 @@ namespace Game
             Console.Clear();
             Console.WriteLine("Добро пожаловать в таверну!");
             Console.WriteLine("\n\n\n\n\n\n\nНажмите Enter чтобы продолжить...");
-            Console.ReadKey();
+			if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+				danger();
             Console.Clear();
             Console.WriteLine(" ____________________________________________________");
             Console.WriteLine("|             МЕНЮ             |  + к xp  |   Цена   | ");
@@ -2076,7 +2237,8 @@ namespace Game
             }
             else if ((vibor_eating == "4.") || (vibor_eating == "4") || (vibor_eating == "Котлета с гарниром") || (vibor_eating == "КОТЛЕТА С ГАРНИРОМ") || (vibor_eating == "котлета с гарниром")) {
                 Console.Write("Вы выбрали котлетку.\n\n\n");
-                Console.ReadKey();
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					danger();
                 Console.Write("Выберите гарнир:");
                 Console.Write("1. Макарошки");
                 Console.Write("2. Пюрешка");
@@ -2119,7 +2281,8 @@ namespace Game
                 Console.Clear();
                 goto place;
             }
-            Console.ReadKey();
+			if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+				danger();
         }
 
         static void TimerCallback(object o)
@@ -2174,6 +2337,47 @@ namespace Game
  * 18)
  * 19)
  * 20)
-*/
+
+
+//if (enter.Key == ConsoleKey.Escape)danger();
+
 // посмотреть нет ли нигде ошибок с gamestatus
- // прописать , что уровень напрямую зависит отпрогресса и если человек потерял прогресс (жизнь и урон), то уровень тоже падает
+//Оптимизировать функцию перемещения  
+// прописать , что уровень напрямую зависит отпрогресса и если человек потерял прогресс (жизнь и урон), то уровень тоже падает
+//добавить вывовод победы - зеленым цветом, а поражения\побега - красным
+
+
+if (Console.ReadKey(true).Key == ConsoleKey.F2)
+	Console.WriteLine("F2 Pressed.");
+
+switch (Console.ReadKey(true).Key) {
+case ConsoleKey.P:
+	play = false;
+	break;
+case ConsoleKey.W:
+	KoorY--;
+	break;
+case ConsoleKey.S:
+	KoorY++;
+	break;
+case ConsoleKey.D:
+	KoorX++;
+	break;
+case ConsoleKey.A:
+	KoorX--;
+	break;
+default:
+	// smth
+	break;
+}
+
+
+Console.ReadKey(true).KeyChar
+
+содержит char, так что можете сравнивать
+C#
+Выделить код
+
+Console.ReadKey(true).KeyChar == 'F'
+
+*/
