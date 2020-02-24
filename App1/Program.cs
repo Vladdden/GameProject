@@ -33,6 +33,11 @@ namespace Game
 
         static void Main()
         {
+<<<<<<< HEAD
+=======
+			labyrinth ();
+			// kfkfkk
+>>>>>>> 344a01961664d13653c5e27edd7bb71af6f920a9
             n = 0;
             Console.WriteLine("\t\t\t\tMAGIC WAR\n\n\n");
             Console.WriteLine("Предыстория: Еще вчера все было хорошо и везде царил мир и покой. \nНо тут случилось то, чего не ожидал никто." +
