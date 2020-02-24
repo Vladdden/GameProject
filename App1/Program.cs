@@ -18,7 +18,6 @@ namespace Game
         static int n;
         static int Hero_Level = 1;
         static int life = 0;
-		ConsoleKeyInfo enter;
 
 
         static List<string[]> frame = new List<string[]>(); //кадр
@@ -35,6 +34,9 @@ namespace Game
 
         static void Main()
         {
+			/*while (true) {
+				going ();
+			}*/
 			Console.Clear();
             n = 0;
             Console.WriteLine("\t\t\t\tMAGIC WAR\n\n\n");
@@ -151,7 +153,7 @@ namespace Game
         {
             Random rand = new Random();
             int temp;
-            temp = rand.Next(3);
+            temp = rand.Next(4);
             switch (temp)
             {
                 case 1:
@@ -201,8 +203,9 @@ namespace Game
                 Console.WriteLine("На пути тебе встретился тролль\n");
                 int troll_health = rand.Next(80, 100);
                 int troll_money = rand.Next(30);
-                int t_h = troll_health + health / 2;
+				int t_h = troll_health / 2;
                 int troll_damage = damage_value(2, troll_health);
+				int total_damage = 0;
                 Print_Army("Тролль", troll_health, troll_damage, troll_money);
                 int pay = troll_health / 3;
                 Console.WriteLine($"Будете сражаться ? Цена откупа - {pay}\n");
@@ -228,6 +231,7 @@ namespace Game
                     }
                     do
                     {
+						total_damage += troll_damage;
                         troll_health -= damage;
                         if (troll_health > 0) Console.WriteLine($"Вы нанесли удар тролю, его здоровье - {troll_health}, урон - {troll_damage}\n");
                         else
@@ -253,7 +257,7 @@ namespace Game
                     {
                         Console.WriteLine("\n\nПоздравляем, вы выиграли !!!\n");
                         Console.WriteLine("Вы отняли у врага его жизненные силы и здоровье, и на половину восстановили\nпервоначальные свои.\n");
-                        health += t_h;
+						health += t_h + total_damage;
                         damage = damage_value(1, health);
                         money += troll_money;
 						if (Console.ReadKey(true).Key == ConsoleKey.Escape)
@@ -641,8 +645,8 @@ namespace Game
 			
 		static string Enter(string s)
         {
-			if ( s == "") {
-				danger ();
+			if (Console.ReadKey(true).Key == ConsoleKey.Escape){
+				danger();
 				Console.WriteLine ("Введите ответ на последнее действие \n");
 				s = Console.ReadLine ();
 			}
@@ -776,7 +780,8 @@ namespace Game
             {
 				
                 var keyInfo = Console.ReadKey();
-		if (keyInfo.Key == ConsoleKey.Escape)danger();
+				if (keyInfo.Key == ConsoleKey.Escape)
+					danger();
                 moveHero(keyInfo);
                 Render();
             }
@@ -867,7 +872,8 @@ namespace Game
                 case 5:
                     //Кража удачная (получилось украсть деньги/амулеты)                                                               |
                     //Кража неудачная (вас поймали и избили , забрав ваши деньги)  
-                    Console.WriteLine("Не далеко от тропы, по которой вы шли, Вам послышался шум людей.");
+				if (money <= 0) break;
+					Console.WriteLine("Не далеко от тропы, по которой вы шли, Вам послышался шум людей.");
 				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
 					danger();
                     Console.WriteLine("Подойдя поближе, вы увидели группу торговцев, остановившихся на опушке для ночлега.");
@@ -1391,7 +1397,8 @@ namespace Game
             {
 				
                 var keyInfo = Console.ReadKey();
-		if (keyInfo.Key == ConsoleKey.Escape)danger();
+				if (keyInfo.Key == ConsoleKey.Escape)
+					danger();
                 moveHero(keyInfo, 1);
                 Render();
             }
@@ -1999,7 +2006,8 @@ namespace Game
             {
 				
                 var keyInfo = Console.ReadKey();
-				if (keyInfo.Key == ConsoleKey.Escape)danger();
+				if (keyInfo.Key == ConsoleKey.Escape)
+					danger();
                 moveHero_Tavern(keyInfo);
                 Render();
             }
@@ -2061,6 +2069,7 @@ namespace Game
                 else Console.WriteLine($"\t\t\tПоздравляем, вы перешли на новый - {Hero_Level}-й уровень !!! ");
                 Present(Hero_Level);
             }
+
         }
 
         static void Present(int level)
@@ -2290,7 +2299,7 @@ namespace Game
             if (money < 50) return;
             money -= 50;
             health += 30;
-            GC.Collect();
+            GC.Collect();//это че???
             Console.WriteLine($"health = {health} money = {money}");
         }
     }
