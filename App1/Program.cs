@@ -34,11 +34,34 @@ namespace Game
 
         static void Main()
         {
-			/*while (true) {
-				going ();
-			}*/
-			Console.Clear();
+            Start();
             n = 0;
+            do
+            {
+                if (n != 0) // итерация здоровья и денег после каждого хода
+                {
+                    money += (int)(40 * level);
+                    health += (int)(60 * level);
+                }
+                PrintInfo(); // вывод характеристик персонажа
+                going(); // генерация локации
+                enemy(ref health, ref damage, ref money); // подбор врага
+                Level(); // проверка уровня
+                rebirth(); // роверка на наличие дополнительных жизней
+                n++;
+            } while (health > 0);
+            Console.WriteLine($"Проведено боев: {n}\n");
+            lose();
+            Console.WriteLine("Нажмите Enter для выхода...");
+			if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+				danger();
+
+        }
+
+
+        static void Start()
+        {
+            Console.Clear();
             Console.WriteLine("\t\t\t\tMAGIC WAR\n\n\n");
             Console.WriteLine("Предыстория: Еще вчера все было хорошо и везде царил мир и покой. \nНо тут случилось то, чего не ожидал никто." +
                 " На земли сказочных земель\nнапали ужасные Тролли. Без какого-либо повода они разбойничают и нападают на\nкаждого, кто встанет у них на пути." +
@@ -91,38 +114,12 @@ namespace Game
 			if (Console.ReadKey(true).Key == ConsoleKey.Escape)
 				danger();
 			Console.Clear();
-            PrintInfo();
             Console.WriteLine("Нажмите Enter для начала игры...");
 			if (Console.ReadKey(true).Key == ConsoleKey.Escape)
 				danger();
             Console.Clear();
-            do
-            {
-                if (n != 0)
-                {
-                    money += (int)(40 * level);
-                    health += (int)(60 * level);
-                }
-                enemy(ref health, ref damage, ref money);
-                Console.Clear();
-                Level();
-                n++;
-                if (health <= 0)
-                {
-                    Console.Clear();
-                    if (life == 1) health = 500;
-                    else if (life == 777) health = 2500;
-                    Console.WriteLine($"Вы использовали запасную жизнь, ваше здоровье - {health}");
-                }
-            } while (health > 0);
-            Console.WriteLine($"Проведено боев: {n}\n");
-            lose();
-            Console.WriteLine("Нажмите Enter для выхода...");
-			if (Console.ReadKey(true).Key == ConsoleKey.Escape)
-				danger();
-
         }
-
+        
         static void PrintInfo()
         {
             Console.Clear();
@@ -191,9 +188,6 @@ namespace Game
 
         static void enemy(ref int health, ref int damage, ref int money)
         {
-            PrintInfo();
-            Console.WriteLine("\n\n\n");
-            going();
             Random rand = new Random();
             int temp;
             if (n <= 3) temp = rand.Next(60);
@@ -2301,6 +2295,16 @@ namespace Game
             health += 30;
             GC.Collect();//это че???
             Console.WriteLine($"health = {health} money = {money}");
+        }
+        static void rebirth()
+        {
+            if (health <= 0)
+            {
+                Console.Clear();
+                if (life == 1) health = 500;
+                else if (life == 777) health = 2500;
+                Console.WriteLine($"Вы использовали запасную жизнь, ваше здоровье - {health}");
+            }
         }
     }
 }
