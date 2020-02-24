@@ -130,9 +130,9 @@ namespace Game
             Console.WriteLine(" ---------------------------------------------");
             Console.WriteLine("|  {0,-14}|  {1,-8}| {2,-5}|  {3,-8}|", user, health, damage, money);
             Console.WriteLine(" ---------------------------------------------");
-            Console.WriteLine("                                              ");
+            Console.WriteLine("|                                             |");
             Console.WriteLine("|                   ПРОТИВ!                   |");
-            Console.WriteLine("                                              ");
+            Console.WriteLine("|                                             |");
             Console.WriteLine(" ---------------------------------------------");
             Console.WriteLine("|  {0,-14}|  {1,-8}| {2,-5}|  {3,-8}|", troll, troll_health, troll_damage, troll_money);
             Console.WriteLine(" ---------------------------------------------");
