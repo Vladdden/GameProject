@@ -30,6 +30,7 @@ namespace Game
         static string tavern = "3"; // Таверна
         static string emptyCell = " "; // Пустая ячейка
         static string game_enemy = "S"; // Враг
+		static int x1, y1; // координаты персонажа
 
 
         static void Main()
@@ -44,8 +45,8 @@ namespace Game
                     health += (int)(60 * level);
                 }
                 PrintInfo(); // вывод характеристик персонажа
-                going(); // генерация локации
-                enemy(ref health, ref damage, ref money); // подбор врага
+				going(); // генерация локации
+                //enemy(ref health, ref damage, ref money); // подбор врага
                 Level(); // проверка уровня
                 rebirth(); // роверка на наличие дополнительных жизней
                 n++;
@@ -61,7 +62,7 @@ namespace Game
 
         static void Start()
         {
-            Console.Clear();
+            clear();
             Console.WriteLine("\t\t\t\tMAGIC WAR\n\n\n");
             Console.WriteLine("Предыстория: Еще вчера все было хорошо и везде царил мир и покой. \nНо тут случилось то, чего не ожидал никто." +
                 " На земли сказочных земель\nнапали ужасные Тролли. Без какого-либо повода они разбойничают и нападают на\nкаждого, кто встанет у них на пути." +
@@ -70,16 +71,16 @@ namespace Game
             Console.WriteLine("Нажмите Enter для продолжения...");     
 			if (Console.ReadKey(true).Key == ConsoleKey.Escape)
 				danger();
-            Console.Clear();
+            clear();
             Console.WriteLine("Примечание №1: Ввод подразумевает русскоязычного пользователя и ответы\nТОЛЬКО в виде \"Да\" и \"Нет\" (за искл. выбора сложности).\n");
             Console.WriteLine("Примечание №2: В игре присутствует защита от неправильного ввода, а так же,\nфункция \"НА РАБОТЕ\".\n" +
                 "В случае, если вы заметили приближение начальника, во время ввода решения\nпросто нажмите \"Esc\" - это скроет игру, " +
                 "заменив её на информацию, выводимую\nпри вызове консоли (даже разбирающийся в компьютерах человек, увидев ее,\nничего не заподозрит)\n" +
-                "Для выхода из режима \"маскировки\" введите следующую комбинацию клавишь - \":)\" \n\n");
+                "Для выхода из режима \"маскировки\" введите следующую комбинацию клавиш - \":)\" \n\n");
             Console.WriteLine("Нажмите Enter для продолжения...");
 			if (Console.ReadKey(true).Key == ConsoleKey.Escape)
 				danger();
-            Console.Clear();
+            clear();
             Console.Write("Введите ваше имя: ");
             user = Console.ReadLine();
             Console.WriteLine($"Добро пожаловать в игру, {user}.\n\n");
@@ -113,22 +114,23 @@ namespace Game
             Console.WriteLine("\n\n\nНажмите Enter для продолжения...");
 			if (Console.ReadKey(true).Key == ConsoleKey.Escape)
 				danger();
-			Console.Clear();
+			clear();
             Console.WriteLine("Нажмите Enter для начала игры...");
 			if (Console.ReadKey(true).Key == ConsoleKey.Escape)
 				danger();
-            Console.Clear();
+            clear();
         }
         
         static void PrintInfo()
         {
-            Console.Clear();
+            clear();
             Console.WriteLine(" ---------------------------------------------");
             Console.WriteLine("|   Ник игрока   | Здоровье | Урон |  Монеты  |");
             Console.WriteLine(" ---------------------------------------------");
             Console.WriteLine("|  {0,-14}|  {1,-8}| {2,-5}|  {3,-8}|", user, health, damage, money);
             Console.WriteLine(" ---------------------------------------------");
-
+			if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+				danger();
         }
 
         static void Print_Army(string troll, int troll_health, int troll_damage, int troll_money)
@@ -144,6 +146,8 @@ namespace Game
             Console.WriteLine(" ---------------------------------------------");
             Console.WriteLine("|  {0,-14}|  {1,-8}| {2,-5}|  {3,-8}|", troll, troll_health, troll_damage, troll_money);
             Console.WriteLine(" ---------------------------------------------");
+			if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+				danger();
         }
 
         static void going()
@@ -157,7 +161,7 @@ namespace Game
                     randomEvent();
 				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
 					danger();
-					Console.Clear();
+					clear();
                     Console.WriteLine("Герой идёт в поле...\n\n\n");
 				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
 					danger();
@@ -167,7 +171,7 @@ namespace Game
                     randomEvent();
 				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
 					danger();
-					Console.Clear();
+					clear();
 					Console.WriteLine("Герой перебирается через горы...\n\n\n");
 				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
 					danger();
@@ -177,7 +181,7 @@ namespace Game
                     randomEvent();
 				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
 					danger();
-					Console.Clear();
+					clear();
 					Console.WriteLine("Герой проходит в лесу...\n\n\n");
 				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
 					danger();
@@ -270,7 +274,7 @@ namespace Game
                 }
                 else
                 {
-                    if (money > pay)
+                    if (money >= pay)
                     {
                         money -= pay;
                         Console.WriteLine("\nВы откупились.\n");
@@ -534,7 +538,7 @@ namespace Game
 
         static void roulette(ref int money, ref int health)
         {
-            Console.Clear();
+            clear();
             Console.WriteLine("Желаете сыграть в рулетку ??? Стоимость игры 500 монет.\n");
             string decision = Console.ReadLine();
             decision = Enter(decision);
@@ -599,7 +603,7 @@ namespace Game
 
         static void danger()
         {
-            Console.Clear();
+            clear();
             Console.WriteLine("Microsoft Windows [Version 6.1.7601]");
             Console.WriteLine("(c) Корпорация Майкрософт (Microsoft Corp.), 2009 Все права защищены. \n\n");
             Console.Write($"C:Users\\{user}> ");
@@ -612,7 +616,7 @@ namespace Game
                     s = Console.ReadLine();
                 } while (s != ":)");
             }
-            Console.Clear();
+            clear();
             Console.WriteLine("Игра возобновлена.\n");
         }
 
@@ -658,6 +662,8 @@ namespace Game
 	
         static void Field(int num)
         {
+			Console.WriteLine ("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+			Console.ReadKey ();
             Console.ForegroundColor = ConsoleColor.White; // Цвет текста консоли 
             /*
             {
@@ -693,7 +699,7 @@ namespace Game
                 frame.Add(new string[] { "#", " ", " ", "\\", "/", " ", " ", "\\", "/", " ", " ", "\\", "/", " ", " ", "\\", "/", " ", " ", "\\", "/", " ", " ", "\\", "/", " ", " ", "\\", "/", " ", " ", "\\", "/", " ", " ", "\\", "/", " ", " ", " ", "/", "-", "-", "-", "-", "-", "\\", " ", " ", " ", "<", " ", "1", " ", "-", " ", "П", "о", "л", "е", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#" });
                 frame.Add(new string[] { "#", " ", " ", "\\", "/", " ", " ", "\\", "/", " ", " ", "\\", "/", " ", " ", "\\", "/", " ", " ", "\\", "/", " ", " ", "\\", "/", " ", " ", "\\", "/", " ", " ", "\\", "/", " ", " ", "\\", "/", " ", " ", "|", " ", "/", "-", "-", "-", "\\", " ", "|", " ", " ", "<", " ", "2", " ", "-", " ", "Л", "а", "б", "и", "р", "и", "н", "т", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#" });
                 frame.Add(new string[] { "#", " ", " ", "\\", "/", " ", " ", "\\", "/", " ", " ", "\\", "/", " ", " ", "\\", "/", " ", " ", "\\", "/", " ", " ", "\\", "/", " ", " ", "\\", "/", " ", " ", "\\", "/", " ", " ", "\\", "/", " ", " ", "|", "|", " ", " ", " ", " ", " ", "|", "|", " ", " ", "<", " ", "3", " ", "-", " ", "Т", "а", "в", "е", "р", "н", "а", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#" });
-                frame.Add(new string[] { "#", " ", " ", "|", "|", " ", " ", "|", "|", " ", " ", "|", "|", " ", " ", "|", "|", " ", " ", "|", "|", " ", " ", "|", "|", " ", " ", "|", "|", " ", " ", "|", "|", " ", " ", "|", "|", " ", " ", "|", "|", " ", " ", "2", " ", " ", "|", "|", " ", " ", "<", " ", "У", "п", "р", "а", "в", "л", "е", "н", "и", "е", " ", "п", "е", "р", "с", "о", "н", "а", "ж", "е", "м", " ", "(", "x", ")", " ", "#" });
+                frame.Add(new string[] { "#", " ", " ", "|", "|", " ", " ", "|", "|", " ", " ", "|", "|", " ", " ", "|", "|", " ", " ", "|", "|", " ", " ", "|", "|", " ", " ", "|", "|", " ", " ", "|", "|", " ", " ", "|", "|", " ", " ", "|", "|", " ", " ", "2", " ", " ", "|", "|", " ", " ", "<", " ", "У", "п", "р", "а", "в", "л", "е", "н", "и", "е", " ", "п", "е", "р", "с", "о", "н", "а", "ж", "е", "м", " ", "(", "Х", ")", " ", "#" });
                 frame.Add(new string[] { "#", "\\", "/", "|", "|", "\\", "/", "|", "|", "\\", "/", "|", "|", "\\", "/", "|", "|", "\\", "/", "|", "|", "\\", "/", "|", "|", "\\", "/", "|", "|", "\\", "/", "|", "|", "\\", "/", "|", "|", " ", " ", "|", "|", "_", " ", " ", " ", "_", "|", "|", " ", " ", "<", " ", "о", "с", "у", "щ", "е", "с", "т", "в", "л", "я", "е", "т", "с", "я", " ", "с", "т", "р", "е", "л", "к", "а", "м", "и", " ", " ", "#" });
                 frame.Add(new string[] { "#", "\\", "/", "|", "|", "\\", "/", "|", "|", "\\", "/", "|", "|", "\\", "/", "|", "|", "\\", "/", "|", "|", "\\", "/", "|", "|", "\\", "/", "|", "|", "\\", "/", "|", "|", "\\", "/", "|", "|", " ", "/", "/", "_", " ", "|", " ", "|", " ", "_", "\\", "\\", " ", "<", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "#" });
                 frame.Add(new string[] { "#", "\\", "/", " ", " ", "\\", "/", " ", " ", "\\", "/", " ", " ", "\\", "/", " ", " ", "\\", "/", " ", " ", "\\", "/", " ", " ", "\\", "/", " ", " ", "\\", "/", " ", " ", "\\", "/", " ", " ", " ", " ", " ", " ", " ", "|", " ", "|", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "/", "/", " ", "#" });
@@ -721,7 +727,7 @@ namespace Game
                 frame.Add(new string[] { "#", "-", "-", " ", " ", "-", "-", " ", " ", "-", "-", "-", "-", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "/", "-", "-", "-", "-", "-", "\\", " ", " ", " ", "<", " ", "1", "-", "Г", "о", "р", "ы", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#" });
                 frame.Add(new string[] { "#", " ", "/", "^", "\\", " ", " ", " ", "/", "^", "\\", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "|", " ", "/", "-", "-", "-", "\\", " ", "|", " ", " ", "<", " ", "2", "-", "Л", "а", "б", "и", "р", "и", "н", "т", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#" });
                 frame.Add(new string[] { "#", "/", "/", "|", "\\", "\\", " ", "/", "/", "|", "\\", "\\", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "|", "|", " ", " ", " ", " ", " ", "|", "|", " ", " ", "<", " ", "3", "-", "Т", "а", "в", "е", "р", "н", "а", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#" });
-                frame.Add(new string[] { "#", "\\", "/", "|", "\\", "\\", "/", "/", "/", "|", "\\", "\\", "\\", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "|", "|", " ", " ", "2", " ", " ", "|", "|", " ", " ", "<", " ", "У", "п", "р", "а", "в", "л", "е", "н", "и", "е", " ", "п", "е", "р", "с", "о", "н", "а", "ж", "е", "м", " ", "(", "x", ")", " ", " ", " ", " ", " ", "#" });
+                frame.Add(new string[] { "#", "\\", "/", "|", "\\", "\\", "/", "/", "/", "|", "\\", "\\", "\\", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "|", "|", " ", " ", "2", " ", " ", "|", "|", " ", " ", "<", " ", "У", "п", "р", "а", "в", "л", "е", "н", "и", "е", " ", "п", "е", "р", "с", "о", "н", "а", "ж", "е", "м", " ", "(", "Х", ")", " ", " ", " ", " ", " ", "#" });
                 frame.Add(new string[] { "#", "\\", "\\", "|", " ", "/", "_", "/", "-", "\\", "_", "/", "\\", "\\", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "|", "|", "_", " ", " ", " ", "_", "|", "|", " ", " ", "<", " ", "о", "с", "у", "щ", "е", "с", "т", "в", "л", "я", "е", "т", "с", "я", " ", "-", " ", "с", "т", "р", "е", "л", "к", "а", "м", "и", " ", " ", " ", " ", "#" });
                 frame.Add(new string[] { "#", "\\", "\\", "\\", "/", "\\", "_", "/", "-", "\\", "_", "/", "-", "\\", "\\", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "/", "/", "_", " ", "|", " ", "|", " ", "_", "\\", "\\", " ", "<", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "#" });
                 frame.Add(new string[] { "#", "\\", "\\", "/", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "\\", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "|", " ", "|", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "/", "/", " ", "#" });
@@ -748,7 +754,7 @@ namespace Game
                 frame.Add(new string[] { "#", " ", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", " ", " ", " ", " ", " ", " ", " ", "/", "-", "-", "-", "-", "-", "\\", " ", " ", " ", "<", " ", "1", "-", "Л", "е", "с", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#" });
                 frame.Add(new string[] { "#", "|", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "|", " ", "_", "_", " ", " ", "|", " ", "/", "-", "-", "-", "\\", " ", "|", " ", " ", "<", " ", "2", "-", "Л", "а", "б", "и", "р", "и", "н", "т", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#" });
                 frame.Add(new string[] { "#", "|", " ", " ", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", " ", "|", "/", " ", " ", "\\", " ", "|", "|", " ", " ", " ", " ", " ", "|", "|", " ", " ", "<", " ", "3", "-", "Т", "а", "в", "е", "р", "н", "а", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#" });
-                frame.Add(new string[] { "#", "|", " ", "|", " ", " ", "_", "_", " ", " ", "_", "_", " ", " ", "_", "_", " ", " ", "_", "_", " ", " ", "_", "_", " ", " ", " ", "|", " ", "|", "|", " ", " ", "|", " ", "|", "|", " ", " ", "2", " ", " ", "|", "|", " ", " ", "<", " ", "У", "п", "р", "а", "в", "л", "е", "н", "и", "е", " ", "п", "е", "р", "с", "о", "н", "а", "ж", "е", "м", " ", "(", "x", ")", " ", " ", " ", " ", " ", "#" });
+                frame.Add(new string[] { "#", "|", " ", "|", " ", " ", "_", "_", " ", " ", "_", "_", " ", " ", "_", "_", " ", " ", "_", "_", " ", " ", "_", "_", " ", " ", " ", "|", " ", "|", "|", " ", " ", "|", " ", "|", "|", " ", " ", "2", " ", " ", "|", "|", " ", " ", "<", " ", "У", "п", "р", "а", "в", "л", "е", "н", "и", "е", " ", "п", "е", "р", "с", "о", "н", "а", "ж", "е", "м", " ", "(", "Х", ")", " ", " ", " ", " ", " ", "#" });
                 frame.Add(new string[] { "#", "|", " ", "|", " ", "/", " ", " ", "\\", "/", " ", " ", "\\", "/", " ", " ", "\\", "/", " ", " ", "\\", "/", " ", " ", "\\", " ", " ", "|", " ", "|", "\\", "|", "|", "/", " ", "|", "|", "_", " ", " ", " ", "_", "|", "|", " ", " ", "<", " ", "о", "с", "у", "щ", "е", "с", "т", "в", "л", "я", "е", "т", "с", "я", " ", "-", " ", "с", "т", "р", "е", "л", "к", "а", "м", "и", " ", " ", " ", " ", "#" });
                 frame.Add(new string[] { "#", "|", " ", "|", " ", "|", " ", " ", "|", "|", " ", " ", "|", "|", " ", " ", "|", "|", " ", " ", "|", "|", " ", " ", "|", "|", " ", "|", " ", "|", " ", "|", "|", " ", "/", "/", "_", " ", "|", " ", "|", " ", "_", "\\", "\\", " ", "<", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "#" });
                 frame.Add(new string[] { "#", "|", " ", "|", " ", "\\", "|", "|", "/", "\\", "|", "|", "/", "\\", "|", "|", "/", "\\", "|", "|", "/", "\\", "|", "|", "/", " ", " ", "|", " ", "|", " ", "_", "_", " ", " ", "_", "_", " ", "|", " ", "|", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "/", "/", " ", "#" });
@@ -770,6 +776,7 @@ namespace Game
                 frame.Add(new string[] { "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#" });
             }
             Render();
+			Console.SetCursorPosition (0, 0);
             while (gameStatus)
             {
 				
@@ -779,12 +786,11 @@ namespace Game
                 moveHero(keyInfo);
                 Render();
             }
-
         }
 
         static void randomEvent()
         {
-            Console.Clear();
+            clear();
             Random rand = new Random();
             int temp;
             temp = rand.Next(21);
@@ -1016,7 +1022,7 @@ namespace Game
                         int q = (int)((float)health * 0.4F);
                         int w = (int)((float)health * 0.5F);
                         t3 = rand.Next(q, w);
-                        Console.WriteLine("Вам повезло, вы не мед, и не - гибы, вы не привлекли этого зверя, как добыча.\n");
+                        Console.WriteLine("Вам повезло, вы не мед, и не - грибы, вы не привлекли этого зверя, как добыча.\n");
 					if (Console.ReadKey(true).Key == ConsoleKey.Escape)
 						danger();
                         Console.WriteLine("Пару раз ударив лапой, он убедился, что вы - живой, и в развалочку ушел.");
@@ -1155,10 +1161,14 @@ namespace Game
 					if (Console.ReadKey(true).Key == ConsoleKey.Escape)
 						danger();
                         Console.WriteLine("Покупка теплой одежды - дело не дешевое. Эта покупка нанесла вам денежный урон в 100 монет.\n");
-                        money -= 100;
-					if (Console.ReadKey(true).Key == ConsoleKey.Escape)
-						danger();
-                    }
+				if (money >= 100)money -= 100;
+					else {
+						int c8_dam = rand.Next(health);
+						Console.WriteLine("К сожалению у вас не хватило денег на покупку одежды, что привело к обморожению и физической травме в виде {c8_dam} единиц урона.");
+						if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+							danger();
+					}
+                }
                     break;
 
                 case 9:
@@ -1352,6 +1362,8 @@ namespace Game
                     Console.WriteLine("По пути, ничего необычного не произошло.");
                     break;
             }
+			if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+				danger();
 
         }
         /*
@@ -1400,21 +1412,26 @@ namespace Game
 
         static void Render()
         {
-            Console.Clear();
+            clear();
             for (int x = 0; x < frame.Count; x++)
             {
                 Console.WriteLine(string.Join("", frame[x]));
             }
+			Console.SetCursorPosition (0,0);
         }
 
         static void moveHero(ConsoleKeyInfo keyInfo, int value = 0)
         {
-            for (int x = frame.Count - 1; x >= 0; x--)
+			int x = 0, y = 0;
+			int x1 = 0, y1 = 0;
+            for (x = frame.Count - 1; x >= 0; x--)
             {
-                for (int y = 0; y < frame[x].Length; y++)
+                for (y = 0; y < frame[x].Length; y++)
                 {
                     if (frame[x][y] == hero)
                     {
+						x1 = x;
+						y1 = y;
                         if (keyInfo.Key == ConsoleKey.UpArrow)
                         {
                             if ((x - 1) >= 0 && frame[x - 1][y] == game_enemy)
@@ -1435,6 +1452,10 @@ namespace Game
                             {
                                 frame[x][y] = emptyCell;
                                 frame[x - 1][y] = hero;
+								clear ();
+								enemy(ref health, ref damage, ref money);
+								frame[x - 1][y] = target;
+								frame [x1] [y1] = hero;
                                 gameStatus = false;
                                 return;
                             }
@@ -1475,6 +1496,10 @@ namespace Game
                             {
                                 frame[x][y] = emptyCell;
                                 frame[x + 1][y] = hero;
+								clear ();
+								enemy(ref health, ref damage, ref money);
+								frame[x + 1][y] = target;
+								frame [x1] [y1] = hero;
                                 gameStatus = false;
                                 return;
                             }
@@ -1516,6 +1541,10 @@ namespace Game
                             {
                                 frame[x][y] = emptyCell;
                                 frame[x][y - 1] = hero;
+								clear ();
+								enemy(ref health, ref damage, ref money);
+								frame[x][y - 1] = target;
+								frame [x1] [y1] = hero;
                                 gameStatus = false;
                                 return;
                             }
@@ -1557,6 +1586,10 @@ namespace Game
                             {
                                 frame[x][y] = emptyCell;
                                 frame[x][y + 1] = hero;
+								clear ();
+								enemy(ref health, ref damage, ref money);
+								frame[x][y + 1] = target;
+								frame [x1] [y1] = hero;
                                 gameStatus = false;
                                 return;
                             }
@@ -1584,7 +1617,7 @@ namespace Game
 
         static void endField()
         {
-            Console.Clear();
+            clear();
             Console.WriteLine("///");
             Console.Beep();
             gameStatus = false;
@@ -1969,7 +2002,7 @@ namespace Game
 
         static void Tavern()
         { 
-            Console.Clear();
+            clear();
             frame.Add(new string[] { "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#" });
             frame.Add(new string[] { "#", " ", " ", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "|", " ", " ", " ", "_", "_", "_", " ", " ", " ", " ", " ", "_", "_", "_", " ", " ", " ", " ", " ", "_", "_", "_", " ", " ", " ", "|", " ", " ", " ", " ", "|", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#" });
             frame.Add(new string[] { "#", " ", "|", " ", "\\", "_", "_", "_", "_", "_", "_", "_", "/", " ", "|", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "\\", " ", "|", " ", " ", " ", "|", " ", " ", " ", "|", " ", " ", " ", "|", " ", " ", " ", "|", " ", " ", " ", "|", " ", "/", " ", " ", " ", " ", " ", "|", " ", "1", ".", "Л", "е", "ч", "ь", " ", "с", "п", "а", "т", "ь", " ", " ", " ", " ", " ", " ", " ", " ", " ", "#" });
@@ -2011,16 +2044,18 @@ namespace Game
         
         static void Level()
         {
-			Console.Clear();
+			clear();
             Random rand = new Random();
             int temp;
-            Console.Clear();
+            clear();
 			if ((health >= 300) && (Hero_Level == 1))
             {
                 Hero_Level = 2;
                 temp = rand.Next(2);
                 if (temp == 1) Console.WriteLine($"\t\t\tПоздравляем, вы достигли {Hero_Level}-го уровня !!! ");
                 else Console.WriteLine($"\t\t\tПоздравляем, вы перешли на новый - {Hero_Level}-й уровень !!! ");
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					danger();
                 Present(Hero_Level);
             }
 			else if ((health >= 500) && (Hero_Level == 2))
@@ -2029,7 +2064,9 @@ namespace Game
                 temp = rand.Next(2);
                 if (temp == 1) Console.WriteLine($"\t\t\tПоздравляем, вы достигли {Hero_Level}-го уровня !!! ");
                 else Console.WriteLine($"\t\t\tПоздравляем, вы перешли на новый - {Hero_Level}-й уровень !!! ");
-                Present(Hero_Level);
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					danger();
+				Present(Hero_Level);
             }
 			else if ((health >= 1000) && (Hero_Level == 3))
             {
@@ -2037,7 +2074,9 @@ namespace Game
                 temp = rand.Next(2);
                 if (temp == 1) Console.WriteLine($"\t\t\tПоздравляем, вы достигли {Hero_Level}-го уровня !!! ");
                 else Console.WriteLine($"\t\t\tПоздравляем, вы перешли на новый - {Hero_Level}-й уровень !!! ");
-                Present(Hero_Level);
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					danger();
+				Present(Hero_Level);
             }
 			else if ((health >= 3000) && (Hero_Level == 4))
             {
@@ -2045,7 +2084,9 @@ namespace Game
                 temp = rand.Next(2);
                 if (temp == 1) Console.WriteLine($"\t\t\tПоздравляем, вы достигли {Hero_Level}-го уровня !!! ");
                 else Console.WriteLine($"\t\t\tПоздравляем, вы перешли на новый - {Hero_Level}-й уровень !!! ");
-                Present(Hero_Level);
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					danger();
+				Present(Hero_Level);
             }
 			else if ((health >= 5000) && (Hero_Level == 5))
             {
@@ -2053,7 +2094,9 @@ namespace Game
                 temp = rand.Next(2);
                 if (temp == 1) Console.WriteLine($"\t\t\tПоздравляем, вы достигли {Hero_Level}-го уровня !!! ");
                 else Console.WriteLine($"\t\t\tПоздравляем, вы перешли на новый - {Hero_Level}-й уровень !!! ");
-                Present(Hero_Level);
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					danger();
+				Present(Hero_Level);
             }
 			else if ((health >= 8000) && (Hero_Level == 6))
             {
@@ -2061,14 +2104,16 @@ namespace Game
                 temp = rand.Next(2);
                 if (temp == 1) Console.WriteLine($"\t\t\tПоздравляем, вы достигли {Hero_Level}-го уровня !!! ");
                 else Console.WriteLine($"\t\t\tПоздравляем, вы перешли на новый - {Hero_Level}-й уровень !!! ");
-                Present(Hero_Level);
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+					danger();
+				Present(Hero_Level);
             }
 
         }
 
         static void Present(int level)
         {
-			Console.Clear();
+			clear();
             Random rand = new Random();
             int temp;
             frame.Add(new string[] { "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#" });
@@ -2116,6 +2161,9 @@ namespace Game
                         else if (temp == 3) Console.WriteLine("Приз за достижение уровня:");
                         Console.WriteLine("1)50 монет");
                         money += 50;
+						if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+							danger();
+						
                     }
                     break;
 
@@ -2129,6 +2177,8 @@ namespace Game
                         money += 50;
                         Console.WriteLine("2)50 ед. жизни");
                         health += 50;
+						if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+							danger();
 
                     }
                     break;
@@ -2141,6 +2191,8 @@ namespace Game
                         else if (temp == 3) Console.WriteLine("Приз за достижение уровня:");
                         Console.WriteLine("1)Волшебный амулет жизни (+150 к жизни)");
                         health += 200;
+						if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+							danger();
                     }
                     break;
 
@@ -2152,6 +2204,8 @@ namespace Game
                         else if (temp == 3) Console.WriteLine("Приз за достижение уровня:");
                         Console.WriteLine("1)Запасная жизнь (в случае, если вы умрете, вы восстановитесь с показателем здоровья - 500)");
                         life = 1;
+						if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+							danger();
                     }
                     break;
 
@@ -2163,6 +2217,8 @@ namespace Game
                         else if (temp == 3) Console.WriteLine("Приз за достижение уровня:");
                         Console.WriteLine("1) Сундук золота (2000 монет)");
                         money += 1000;
+						if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+							danger();
                     }
                     break;
 
@@ -2174,6 +2230,8 @@ namespace Game
                         else if (temp == 3) Console.WriteLine("Приз за достижение уровня:");
                         Console.WriteLine("1)Улучшенная запасная жизнь (в случае, если вы умрете, вы восстановитесь с показателем здоровья - 2500)");
                         life = 777;
+						if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+							danger();
                     }
                     break;
 
@@ -2194,12 +2252,12 @@ namespace Game
         
         static void Eating()
         {
-            Console.Clear();
+            clear();	
             Console.WriteLine("Добро пожаловать в таверну!");
             Console.WriteLine("\n\n\n\n\n\n\nНажмите Enter чтобы продолжить...");
 			if (Console.ReadKey(true).Key == ConsoleKey.Escape)
 				danger();
-            Console.Clear();
+            clear();
             Console.WriteLine(" ____________________________________________________");
             Console.WriteLine("|             МЕНЮ             |  + к xp  |   Цена   | ");
             Console.WriteLine(" ------------------------------|----------|----------| ");
@@ -2216,7 +2274,7 @@ namespace Game
             place:
             Console.Write("Введите необходимый номер: ");
             vibor_eating = Console.ReadLine();
-            Console.Clear();
+            clear();
             if ((vibor_eating == "1.") || (vibor_eating == "1") || (vibor_eating == "Яблоко") || (vibor_eating == "ЯБЛОКО") || (vibor_eating == "яблоко")) {
                 Console.Write("Вы съели яблоко.");
                 Console.Write("Прибавилось: 20 ед. здоровья");
@@ -2270,7 +2328,7 @@ namespace Game
                     }
                 }
                 else {
-                    Console.Clear();
+                    clear();
                     goto place2;
                 }
             }
@@ -2281,7 +2339,7 @@ namespace Game
             }
             else if ((vibor_eating == "0.") || (vibor_eating == "0")) return;
             else {
-                Console.Clear();
+                clear();
                 goto place;
             }
 			if (Console.ReadKey(true).Key == ConsoleKey.Escape)
@@ -2300,13 +2358,22 @@ namespace Game
         {
             if (health <= 0)
             {
-                Console.Clear();
+                clear();
                 if (life == 1) health = 500;
                 else if (life == 777) health = 2500;
                 Console.WriteLine($"Вы использовали запасную жизнь, ваше здоровье - {health}");
             }
         }
-    }
+		static void clear(){
+			Console.SetCursorPosition (0,0);
+			for (int x = 0; x < Console.WindowHeight; x++)
+			{
+				Console.Write (new string(' ', Console.WindowWidth));
+			}
+			Console.SetCursorPosition (0, 0);
+
+    	}
+	}
 }
 // сохранение
 // добавить врагов (должно быть 5 врагов и 3 удара (удар мечем/магией/щит(щит будет пробиваться, если враг будет использовать сильный удар)
@@ -2392,5 +2459,11 @@ C#
 Выделить код
 
 Console.ReadKey(true).KeyChar == 'F'
+
+
+
+
+
+
 
 */
