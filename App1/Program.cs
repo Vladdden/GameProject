@@ -665,7 +665,7 @@ namespace Game
                 {
                     Console.WriteLine("Вы ввели неверное значение. Пожалйста, повторите ввод !");
                     s = Console.ReadLine();
-                    if (Console.ReadKey(true).Key == ConsoleKey.Escape){
+                    if (Console.ReadKey(true).Key == ConsoleKey.Escape)
                         danger();
                 } while ((s != "Да") && (s != "да") && (s != "ДА") && (s != "Нет") && (s != "нет") && (s != "НЕТ"));
                 return s;
