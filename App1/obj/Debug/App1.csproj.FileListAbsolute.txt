@@ -19,3 +19,10 @@ C:\Users\Владислав\Desktop\App1\App1\obj\Debug\App1.csprojAssemblyRefer
 C:\Users\Владислав\Desktop\App1\App1\obj\Debug\App1.csproj.CoreCompileInputs.cache
 C:\Users\Владислав\Desktop\App1\App1\obj\Debug\App1.exe
 C:\Users\Владислав\Desktop\App1\App1\obj\Debug\App1.pdb
+C:\Users\Владислав\Documents\GitHub\GameProject\App1\bin\Debug\App1.exe.config
+C:\Users\Владислав\Documents\GitHub\GameProject\App1\bin\Debug\App1.exe
+C:\Users\Владислав\Documents\GitHub\GameProject\App1\bin\Debug\App1.pdb
+C:\Users\Владислав\Documents\GitHub\GameProject\App1\obj\Debug\App1.csprojAssemblyReference.cache
+C:\Users\Владислав\Documents\GitHub\GameProject\App1\obj\Debug\App1.csproj.CoreCompileInputs.cache
+C:\Users\Владислав\Documents\GitHub\GameProject\App1\obj\Debug\App1.exe
+C:\Users\Владислав\Documents\GitHub\GameProject\App1\obj\Debug\App1.pdb
