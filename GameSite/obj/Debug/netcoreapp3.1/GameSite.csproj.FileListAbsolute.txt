@@ -1,0 +1,10 @@
+C:\Users\Владислав\Documents\GitHub\GameProject\GameSite\bin\Debug\netcoreapp3.1\appsettings.Development.json
+C:\Users\Владислав\Documents\GitHub\GameProject\GameSite\bin\Debug\netcoreapp3.1\appsettings.json
+C:\Users\Владислав\Documents\GitHub\GameProject\GameSite\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
+C:\Users\Владислав\Documents\GitHub\GameProject\GameSite\bin\Debug\netcoreapp3.1\GameSite.exe
+C:\Users\Владислав\Documents\GitHub\GameProject\GameSite\obj\Debug\netcoreapp3.1\GameSite.csprojAssemblyReference.cache
+C:\Users\Владислав\Documents\GitHub\GameProject\GameSite\obj\Debug\netcoreapp3.1\GameSite.AssemblyInfoInputs.cache
+C:\Users\Владислав\Documents\GitHub\GameProject\GameSite\obj\Debug\netcoreapp3.1\GameSite.AssemblyInfo.cs
+C:\Users\Владислав\Documents\GitHub\GameProject\GameSite\obj\Debug\netcoreapp3.1\GameSite.RazorTargetAssemblyInfo.cache
+C:\Users\Владислав\Documents\GitHub\GameProject\GameSite\obj\Debug\netcoreapp3.1\staticwebassets\GameSite.StaticWebAssets.Manifest.cache
+C:\Users\Владислав\Documents\GitHub\GameProject\GameSite\obj\Debug\netcoreapp3.1\staticwebassets\GameSite.StaticWebAssets.xml

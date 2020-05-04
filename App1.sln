@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27428.2043
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App1", "App1\App1.csproj", "{425385A4-8934-4DB8-A399-E28640671311}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameSite", "GameSite\GameSite.csproj", "{8D1CEE00-5A17-4908-8457-C56797D35817}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{425385A4-8934-4DB8-A399-E28640671311}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{425385A4-8934-4DB8-A399-E28640671311}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{425385A4-8934-4DB8-A399-E28640671311}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D1CEE00-5A17-4908-8457-C56797D35817}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D1CEE00-5A17-4908-8457-C56797D35817}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D1CEE00-5A17-4908-8457-C56797D35817}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D1CEE00-5A17-4908-8457-C56797D35817}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
